@@ -16,6 +16,7 @@ public class StartHomePage extends JPanel {
         super.paintComponent(graphics);
 
         ImageIcon startHomePageImage = new ImageIcon("resources\\images\\StartBackground1.2.2.6.jpg");
+
         startHomePageImage.paintIcon(null, graphics, START_HOME_PAGE1_X, START_HOME_PAGE1_Y);
     }
 }

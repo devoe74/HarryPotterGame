@@ -36,11 +36,11 @@ public class Snitch extends Thread {// הכדור שצריך לתפוס
     }
 
     public void paint (Graphics graphics){
-        ImageIcon snitchImage = new ImageIcon("C:\\Users\\daniel\\IdeaProjects\\HarryPotterGame\\resources\\images\\Snitch2.2.1.gif");
+        ImageIcon snitchImage = new ImageIcon("resources\\images\\Snitch2.2.1.gif");
         snitchImage.paintIcon(null, graphics, this.x, this.y);
 
         for (int i = 0; i < this.snitchsToCatch; i++) {
-            ImageIcon snitchCounterSymbol = new ImageIcon("C:\\Users\\daniel\\IdeaProjects\\HarryPotterGame\\resources\\images\\SnitchBlurPhoto.png");
+            ImageIcon snitchCounterSymbol = new ImageIcon("resources\\images\\SnitchBlurPhoto.png");
             snitchCounterSymbol.paintIcon(null,graphics,SNITCH_COUNTER_SYMBOL_X - (SNITCH_WIDTH * (snitchsToCatch - i)) ,1);
         }
     }

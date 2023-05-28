@@ -21,11 +21,11 @@ public class Background extends Thread{
     }
 
     public void paint(Graphics graphics){
-        ImageIcon backgroundImage3 = new ImageIcon("C:\\Users\\daniel\\IdeaProjects\\HarryPotterGame\\resources\\images\\Background1.2.4.jpg");
+        ImageIcon backgroundImage3 = new ImageIcon("resources\\images\\Background1.2.4.jpg");
         backgroundImage3.paintIcon(null, graphics, BACKGROUND1_START_x, ALL_THE_BACKGROUNDS_Y);
-        ImageIcon backgroundImage1 = new ImageIcon("C:\\Users\\daniel\\IdeaProjects\\HarryPotterGame\\resources\\images\\Background1.2.4.jpg");
+        ImageIcon backgroundImage1 = new ImageIcon("resources\\images\\Background1.2.4.jpg");
         backgroundImage1.paintIcon(null, graphics, backgroundImage1X, ALL_THE_BACKGROUNDS_Y);
-        ImageIcon backgroundImage2 = new ImageIcon("C:\\Users\\daniel\\IdeaProjects\\HarryPotterGame\\resources\\images\\Background2.2.4.jpg");
+        ImageIcon backgroundImage2 = new ImageIcon("resources\\images\\Background2.2.4.jpg");
         backgroundImage2.paintIcon(null, graphics, BackgroundImage2X, ALL_THE_BACKGROUNDS_Y);
 
 
