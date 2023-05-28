@@ -17,7 +17,6 @@ public class StartHomePage extends JPanel {
         super.paintComponent(graphics);
 
         ImageIcon startHomePageImage = Utils.loadFile("resources\\images\\StartBackground1.2.2.6.jpg");
-//        ImageIcon startHomePageImage = new ImageIcon("C:\\Users\\daniel\\IdeaProjects\\HarryPotterGame\\resources\\images\\StartBackground1.2.2.6.jpg");
         startHomePageImage.paintIcon(null, graphics, START_HOME_PAGE1_X, START_HOME_PAGE1_Y);
     }
 }
