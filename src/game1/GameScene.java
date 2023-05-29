@@ -15,6 +15,7 @@ public class GameScene extends JPanel implements KeyListener {
 
     private Snitch snitch;
     private int snitchToCatch;
+    private int waitBeforeNextSnitch = 0;
     private Background background;
     private Boost[] boosts; // אולי נרצה יותר
     private int waitBeforeNextBoost = 0;
@@ -166,12 +167,15 @@ public class GameScene extends JPanel implements KeyListener {
 
 
                // calculate harry vs snitch section
-               if (Utils.checkCollision(this.harry.calculateRectangle1() , this.snitch.calculateRectangle()) || Utils.checkCollision(this.harry.calculateRectangle2() , this.snitch.calculateRectangle())){
-                   this.snitch.harryCatchTheSnitch();
-                   this.snitch.speedUp();
-                   this.background.speedUp(this.snitch.getSnitchsToCatch());
-                   this.harry.reset();
-                   this.wall.reset();
+               if (Utils.checkCollision(this.harry.calculateRectangle2() , this.snitch.calculateRectangle())){
+                   if (this.waitBeforeNextSnitch == 200) {
+                       this.waitBeforeNextSnitch = 0;
+                       this.snitch.speedUp();
+                       this.snitch.harryCatchTheSnitch();
+                       this.background.speedUp(this.snitch.getSnitchsToCatch());
+                       this.harry.reset();
+                       this.wall.reset();
+                   }
                }
 
 
@@ -222,6 +226,9 @@ public class GameScene extends JPanel implements KeyListener {
                }
                if (this.waitBeforeCanUseNextFreezeBall < 800){
                    this.waitBeforeCanUseNextFreezeBall++;
+               }
+               if (this.waitBeforeNextSnitch < 200){
+                   this.waitBeforeNextSnitch++;
                }
 
                // calculate harry time after dying section
