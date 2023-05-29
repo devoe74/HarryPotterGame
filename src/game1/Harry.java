@@ -30,7 +30,7 @@ public class Harry {// הארי בעצמו
     }
     public void paint (Graphics graphics) {
         if (this.showHarry){
-            this.harryImage = new ImageIcon("resources\\images\\Harry2.1.png");
+            this.harryImage = new ImageIcon(Main.ADD_TO_PATH + "resources\\images\\Harry2.1.png");
             harryImage.paintIcon(null,graphics,this.x,this.y);
         }
 

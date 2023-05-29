@@ -91,7 +91,7 @@ public class StartHomePage2 extends JPanel {
         this.information.setBounds(400,100,1600,620);
         this.add(information);
 
-        this.changTheLanguageButton = new JButton(new ImageIcon("resources\\images\\English&Flag.2.png"));
+        this.changTheLanguageButton = new JButton(new ImageIcon(Main.ADD_TO_PATH + "resources\\images\\English&Flag.2.png"));
         this.changTheLanguageButton.setBounds(50,Window.WINDOW_HEIGHT - 150,120,35);
 
         this.changTheLanguageButton.addActionListener((event)->{
@@ -105,7 +105,7 @@ public class StartHomePage2 extends JPanel {
     public void paintComponent (Graphics graphics) {
         super.paintComponent(graphics);
 
-        ImageIcon startHomePageImage = new ImageIcon("resources\\images\\StartBackground2.2.4.2.jpg");
+        ImageIcon startHomePageImage = new ImageIcon(Main.ADD_TO_PATH + "resources\\images\\StartBackground2.2.4.2.jpg");
         startHomePageImage.paintIcon(null, graphics, START_HOME_PAGE2_X, START_HOME_PAGE2_Y);
     }
     public void changTheLanguage(){
@@ -113,11 +113,11 @@ public class StartHomePage2 extends JPanel {
         if (this.hebrewOrEnglish){
             this.information.setText(hebrewText);
             this.information.setBounds(400,70,1600,620);
-            this.changTheLanguageButton.setIcon(new ImageIcon("resources\\images\\English&Flag.2.png"));
+            this.changTheLanguageButton.setIcon(new ImageIcon(Main.ADD_TO_PATH + "resources\\images\\English&Flag.2.png"));
         }else {
             this.information.setText(englishText);
             this.information.setBounds(220,70,1600,690);
-            this.changTheLanguageButton.setIcon(new ImageIcon("resources\\images\\Hebrew&Flag.png"));
+            this.changTheLanguageButton.setIcon(new ImageIcon(Main.ADD_TO_PATH + "resources\\images\\Hebrew&Flag.png"));
 
         }
     }

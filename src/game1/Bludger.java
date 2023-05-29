@@ -41,7 +41,7 @@ public class Bludger extends Thread { // הכדור שפוגע לך בראש
 
     }
     public void paint(Graphics graphics){
-        ImageIcon bludgerImage = new ImageIcon("resources\\images\\Bludger2.2.png");
+        ImageIcon bludgerImage = new ImageIcon(Main.ADD_TO_PATH + "resources\\images\\Bludger2.2.png");
         bludgerImage.paintIcon(null,graphics,this.x,this.y);
     }
 
