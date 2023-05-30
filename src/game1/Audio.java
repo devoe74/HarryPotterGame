@@ -16,6 +16,7 @@ public class Audio {
         clip.open(audioInputStream);
 
         clip.start();
+        clip.loop(clip.LOOP_CONTINUOUSLY);
 
         new Thread(() ->{
             while (true){
