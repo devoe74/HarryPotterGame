@@ -30,7 +30,7 @@ public class Wall { // שרביט חוסם
     }
 
     public void paint(Graphics graphics){
-        ImageIcon wandImage = new ImageIcon(Main.ADD_TO_PATH + "resources\\images\\Wand2.0.png");
+        ImageIcon wandImage = new ImageIcon(Utils.ADD_TO_PATH + "resources\\images\\Wand2.0.png");
         wandImage.paintIcon(null,graphics,this.x,Y);
 
         graphics.setColor(Color.GREEN);

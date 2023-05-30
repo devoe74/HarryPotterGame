@@ -45,7 +45,7 @@ public class Window extends JFrame {
         this.setVisible(true);
 
 
-        this.switchPanelsButton = new JButton(new ImageIcon(Main.ADD_TO_PATH + "resources\\images\\StartButton2.2.4.3.jpg"));
+        this.switchPanelsButton = new JButton(new ImageIcon(Utils.ADD_TO_PATH + "resources\\images\\StartButton2.2.4.3.jpg"));
         this.switchPanelsButton.setBounds(THE_MIDDLE_WIDTH_OF_THE_WINDOW  - (350 / 2) , THE_MIDDLE_HEIGHT_OF_THE_WINDOW + 150, 350,196);
         this.switchPanelsButton.setVisible(true);
 
@@ -66,7 +66,7 @@ public class Window extends JFrame {
         this.add(switchPanelsButton);
         this.add(startHomePage);
 
-        this.startGame = new JButton(new ImageIcon(Main.ADD_TO_PATH + "resources\\images\\HarryStartButton.2.2.gif"));
+        this.startGame = new JButton(new ImageIcon(Utils.ADD_TO_PATH + "resources\\images\\HarryStartButton.2.2.gif"));
         this.startGame.setBounds(THE_MIDDLE_WIDTH_OF_THE_WINDOW - (217 / 2),WINDOW_HEIGHT - 250 , 217,149);
         this.startGame.setVisible(false);
 

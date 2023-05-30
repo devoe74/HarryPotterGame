@@ -10,7 +10,7 @@ public class Audio {
 
     public Audio() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         this.playMusic = true;
-        File backgroundAudioFile = new File(Main.ADD_TO_PATH + "resources\\Audio\\QuidditchAudio2.wav");
+        File backgroundAudioFile = new File(Utils.ADD_TO_PATH + "resources\\Audio\\QuidditchAudio2.wav");
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(backgroundAudioFile);
         Clip clip = AudioSystem.getClip();
         clip.open(audioInputStream);
