@@ -13,7 +13,7 @@ public class Window extends JFrame {
     private JButton startGame;
     private Audio audio;
     private JButton audioControl;
-    private boolean playOrPause;
+    private boolean playOrPauseMusic;
     public static final int WINDOW_WIDTH = 1900;
     public static final int WINDOW_HEIGHT = 1050;
     public static final int THE_MIDDLE_HEIGHT_OF_THE_WINDOW = WINDOW_HEIGHT / 2;
@@ -25,7 +25,7 @@ public class Window extends JFrame {
     public Window () throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 
         this.audio = new Audio();
-        this.playOrPause = false;
+        this.playOrPauseMusic = false;
 
         this.setTitle("QUIDDITCH");
         this.setLayout(null);
@@ -38,7 +38,22 @@ public class Window extends JFrame {
         this.startHomePage2.setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         this.startHomePage2.setVisible(false);
 
-
+        this.audioControl = new JButton(new ImageIcon(Utils.ADD_TO_PATH + "resources\\images\\pauseAudioButton.2.png"));
+        this.audioControl.setFocusable(false);
+        this.audioControl.setBounds(WINDOW_WIDTH - 150,WINDOW_HEIGHT - 150,70,60);
+        this.audioControl.setVisible(false);
+        this.audioControl.addActionListener(e -> {
+            if (this.playOrPauseMusic){
+                this.playOrPauseMusic = false;
+                this.audioControl.setIcon(new ImageIcon(Utils.ADD_TO_PATH + "resources\\images\\pauseAudioButton.2.png"));
+                this.audio.PlayMusic();
+            }
+            else {
+                this.playOrPauseMusic = true;
+                this.audioControl.setIcon(new ImageIcon(Utils.ADD_TO_PATH + "resources\\images\\playAudioButton2.png"));
+                this.audio.stopMusic();
+            }
+        });
 
         this.startHomePage = new StartHomePage();
         this.startHomePage.setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -51,13 +66,10 @@ public class Window extends JFrame {
 
 
         this.switchPanelsButton.addActionListener((e) -> {
+
             this.remove(startHomePage);
             this.startHomePage.setVisible(false);
-
-
-
             this.startHomePage2.setVisible(true);
-
             this.remove(switchPanelsButton);
             this.switchPanelsButton.setVisible(false);
             this.startGame.setVisible(true);
@@ -66,44 +78,26 @@ public class Window extends JFrame {
         this.add(switchPanelsButton);
         this.add(startHomePage);
 
+
         this.startGame = new JButton(new ImageIcon(Utils.ADD_TO_PATH + "resources\\images\\HarryStartButton.2.2.gif"));
         this.startGame.setBounds(THE_MIDDLE_WIDTH_OF_THE_WINDOW - (217 / 2),WINDOW_HEIGHT - 250 , 217,149);
         this.startGame.setVisible(false);
 
-        this.audioControl = new JButton("stop music");
-        this.audioControl.setBounds(50,50,100,50);
-        this.audioControl.setVisible(false);
-        this.audioControl.addActionListener(e1 -> {
-            if (this.playOrPause){
-                this.playOrPause = false;
-                this.audioControl.setText("stop music");
-                this.audio.PlayMusic();
-            }
-            else {
-                this.playOrPause = true;
-                this.audioControl.setText("play music");
-                this.audio.stopMusic();
-            }
-        });
 
         this.startGame.addActionListener((e) -> {
             this.remove(startHomePage2);
             this.remove(audioControl);
 
             this.gameScene = new GameScene();
-                gameScene.setBounds(0,0,WINDOW_WIDTH,WINDOW_HEIGHT);
-                this.add(gameScene);
+            this.gameScene.setBounds(0,0,WINDOW_WIDTH,WINDOW_HEIGHT);
+            this.add(gameScene);
 
-                this.remove(startGame);
+            this.remove(startGame);
         });
-        this.add(startGame);
         this.add(audioControl);
+        this.add(startGame);
         this.add(startHomePage2);
-
-
-
     }
-
 
 
     public void showWindow () {

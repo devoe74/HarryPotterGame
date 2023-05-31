@@ -62,12 +62,12 @@ public class GameScene extends JPanel implements KeyListener {
             boosts[i].start();
         }
 
-        this.freezeBall = new FreezeBall(1,7000);
+        this.freezeBall = new FreezeBall(1, 7000);
         this.freezeBall.start();
 
         this.bludgers = new Bludger[TOTAL_BLUDGERS];
         for (int i = 0; i < this.bludgers.length; i++) {
-            Bludger bludger = new Bludger(Bludger.START_LINE_FOR_BLUDGER,1 , i , (i) * 5000 , this.snitch.getSnitchsToCatch());
+            Bludger bludger = new Bludger(Bludger.START_LINE_FOR_BLUDGER, 1, i, (i) * 5000, this.snitch.getSnitchsToCatch());
             bludgers[i] = bludger;
             bludger.start();
         }
@@ -103,155 +103,154 @@ public class GameScene extends JPanel implements KeyListener {
 
         this.freezeBall.paint(graphics);
 
-        if (this.snitch.getSnitchsToCatch() == 0){
+        if (this.snitch.getSnitchsToCatch() == 0) {
             endPanel.paintComponent(graphics);
         }
 
     }
 
 
-    public void mainGameLoop(){
+    public void mainGameLoop() {
         new Thread(() -> {
 
-           //calculate harry movement section
-           while (true){
+            //calculate harry movement section
+            while (true) {
 
-               // calculate the end of the game section
-               if (this.snitch.getSnitchsToCatch() == 0){
-                   Utils.sleep(3000);
-                   System.exit(74);
-               }
+                // calculate the end of the game section
+                if (this.snitch.getSnitchsToCatch() == 0) {
+                    Utils.sleep(3000);
+                    System.exit(74);
+                }
 
+                //calculate harry movement section
+                int dx = 0;
+                int dy = 0;
 
-               int dx = 0;
-               int dy = 0;
+                if (this.pressedKeys[DOWN]) {
+                    if (this.harry.getY() + this.harry.getHeight() < Window.WINDOW_HEIGHT - 50) {
+                        dy++;
+                    }
+                }
 
-               if (this.pressedKeys[DOWN]) {
-                   if (this.harry.getY() + this.harry.getHeight() < Window.WINDOW_HEIGHT - 50 ) {
-                       dy++;
-                   }
-               }
+                if (this.pressedKeys[UP]) {
+                    if (harry.getY() > 0) {
+                        dy--;
+                    }
+                }
 
-               if (this.pressedKeys[UP]) {
-                   if (harry.getY() > 0) {
-                       dy--;
-                   }
-               }
+                if (this.pressedKeys[RIGHT]) {
+                    if (harry.getX() + harry.getWidth() < Window.WINDOW_WIDTH && this.harry.getX() + this.harry.getWidth() < wall.getX() + 6) {
+                        dx++;
+                    }
+                }
 
-               if (this.pressedKeys[RIGHT]) {
-                   if (harry.getX() + harry.getWidth() < Window.WINDOW_WIDTH && this.harry.getX() + this.harry.getWidth() < wall.getX() + 6 ) {
-                       dx++;
-                   }
-               }
+                if (this.pressedKeys[LEFT]) {
+                    if (harry.getX() > 0) {
+                        dx--;
+                    }
+                }
 
-               if (this.pressedKeys[LEFT]) {
-                   if (harry.getX() >0) {
-                       dx--;
-                   }
-               }
+                this.harry.move(dx, dy);
 
-               this.harry.move(dx,dy);
-
-               // calculate if can freeze bludgers section
-               if (this.freezeBall.canFreeze()) {
-                   if (this.pressedKeys[SPACE]) {
-                       if (this.waitBeforeCanUseNextFreezeBall == 800) {
-                           this.waitBeforeCanUseNextFreezeBall = 0;
-                           this.freezeBall.useFreezeBall();
-                           for (int i = 0; i < TOTAL_BLUDGERS; i++) {
-                               this.bludgers[i].freeze();
-                           }
-                       }
-                   }
-               }
-
-
-               // calculate harry vs snitch section
-               if (Utils.checkCollision(this.harry.calculateRectangle2() , this.snitch.calculateRectangle())){
-                   if (this.waitBeforeNextSnitch == 200) {
-                       this.waitBeforeNextSnitch = 0;
-                       this.snitch.speedUp();
-                       this.snitch.harryCatchTheSnitch();
-                       this.background.speedUp(this.snitch.getSnitchsToCatch());
-                       this.harry.reset();
-                       this.wall.reset();
-                   }
-               }
+                // calculate if can freeze bludgers section
+                if (this.freezeBall.canFreeze()) {
+                    if (this.pressedKeys[SPACE]) {
+                        if (this.waitBeforeCanUseNextFreezeBall == 800) {
+                            this.waitBeforeCanUseNextFreezeBall = 0;
+                            this.freezeBall.useFreezeBall();
+                            for (int i = 0; i < TOTAL_BLUDGERS; i++) {
+                                this.bludgers[i].freeze();
+                            }
+                        }
+                    }
+                }
 
 
-               // calculate harry vs boost section
-               for (Boost boost : this.boosts) {
-                   if (Utils.checkCollision(this.harry.calculateRectangle1(), boost.calculateRectangle()) || Utils.checkCollision(this.harry.calculateRectangle2(), boost.calculateRectangle())) {
-                       if (this.waitBeforeNextBoost == 3000) {
-                           this.wall.gutBonus();
-                           boost.setToHideOrNotBoost(false);
-                           this.waitBeforeNextBoost = 0;
-                       }
-                   }
-               }
-
-               // calculate harry vs freeze ball section
-               if (Utils.checkCollision(this.harry.calculateRectangle1() , this.freezeBall.calculateRectangle()) || Utils.checkCollision(this.harry.calculateRectangle2() , this.freezeBall.calculateRectangle())){
-                   if (this.waitBeforeNextFreezeBall == 3000){
-                       this.freezeBall.gotFreezeBall();
-                       this.freezeBall.setToHideOrNotFreezeBall(false);
-                       this.waitBeforeNextFreezeBall = 0;
-                   }
-               }
+                // calculate harry vs snitch section
+                if (Utils.checkCollision(this.harry.calculateRectangle2(), this.snitch.calculateRectangle())) {
+                    if (this.waitBeforeNextSnitch == 200) {
+                        this.waitBeforeNextSnitch = 0;
+                        this.snitch.speedUp();
+                        this.snitch.harryCatchTheSnitch();
+                        this.background.speedUp(this.snitch.getSnitchsToCatch());
+                        this.harry.reset();
+                        this.wall.reset();
+                    }
+                }
 
 
-               // calculate harry vs bludger section
-               for (int i = 0; i < TOTAL_BLUDGERS; i++) {
-                   if (Utils.checkCollision(this.harry.calculateRectangle1(), this.bludgers[i].calculateRectangle()) || Utils.checkCollision(this.harry.calculateRectangle2(), this.bludgers[i].calculateRectangle())){
-                       if (this.wall.isWallStartedToMove()) {
-                           if (this.waitBeforeMoveWallBack == 1000) {
-                           this.wall.died(this.harry.isAlive());
-                               this.waitBeforeMoveWallBack = 0;
-                           }
-                       }
-                       this.harry.kill();
-                   }
-               }
+                // calculate harry vs boost section
+                for (Boost boost : this.boosts) {
+                    if (Utils.checkCollision(this.harry.calculateRectangle1(), boost.calculateRectangle()) || Utils.checkCollision(this.harry.calculateRectangle2(), boost.calculateRectangle())) {
+                        if (this.waitBeforeNextBoost == 3000) {
+                            this.wall.gutBonus();
+                            boost.setToHideOrNotBoost(false);
+                            this.waitBeforeNextBoost = 0;
+                        }
+                    }
+                }
 
-               // calculate the next boost and move wall section
-               if (this.waitBeforeNextBoost < 3000){
-                   this.waitBeforeNextBoost++;
-               }
-               if (this.waitBeforeMoveWallBack < 1000){
-                   this.waitBeforeMoveWallBack++;
-               }
-               //calculate the next freeze ball section
-               if (this.waitBeforeNextFreezeBall < 3000){
-                   this.waitBeforeNextFreezeBall++;
-               }
-               if (this.waitBeforeCanUseNextFreezeBall < 800){
-                   this.waitBeforeCanUseNextFreezeBall++;
-               }
-               if (this.waitBeforeNextSnitch < 200){
-                   this.waitBeforeNextSnitch++;
-               }
+                // calculate harry vs freeze ball section
+                if (Utils.checkCollision(this.harry.calculateRectangle1(), this.freezeBall.calculateRectangle()) || Utils.checkCollision(this.harry.calculateRectangle2(), this.freezeBall.calculateRectangle())) {
+                    if (this.waitBeforeNextFreezeBall == 3000) {
+                        this.freezeBall.gotFreezeBall();
+                        this.freezeBall.setToHideOrNotFreezeBall(false);
+                        this.waitBeforeNextFreezeBall = 0;
+                    }
+                }
 
-               // calculate harry time after dying section
-               if (!this.harry.isAlive()) {
-                   waitBeforeReviveCounter++;
-                   if (waitBeforeReviveCounter == timeForHarryToRevive) {
-                       timeToChange = toAdd;
-                       harry.revive();
-                       waitBeforeReviveCounter = 0;
 
-                   } else if (waitBeforeReviveCounter == timeToChange) {
-                       timeToChange += toAdd;
-                       harry.toHideOrNot();
-                   }
-               }
+                // calculate harry vs bludger section
+                for (int i = 0; i < TOTAL_BLUDGERS; i++) {
+                    if (Utils.checkCollision(this.harry.calculateRectangle1(), this.bludgers[i].calculateRectangle()) || Utils.checkCollision(this.harry.calculateRectangle2(), this.bludgers[i].calculateRectangle())) {
+                        if (this.wall.isWallStartedToMove()) {
+                            if (this.waitBeforeMoveWallBack == 1000) {
+                                this.wall.died(this.harry.isAlive());
+                                this.waitBeforeMoveWallBack = 0;
+                            }
+                        }
+                        this.harry.kill();
+                    }
+                }
 
-               repaint();
+                // calculate the next boost and move wall section
+                if (this.waitBeforeNextBoost < 3000) {
+                    this.waitBeforeNextBoost++;
+                }
+                if (this.waitBeforeMoveWallBack < 1000) {
+                    this.waitBeforeMoveWallBack++;
+                }
+                //calculate the next freeze ball section
+                if (this.waitBeforeNextFreezeBall < 3000) {
+                    this.waitBeforeNextFreezeBall++;
+                }
+                if (this.waitBeforeCanUseNextFreezeBall < 800) {
+                    this.waitBeforeCanUseNextFreezeBall++;
+                }
+                if (this.waitBeforeNextSnitch < 200) {
+                    this.waitBeforeNextSnitch++;
+                }
 
-               Utils.sleep(HARRY_SPEED);
-           }
+                // calculate harry time after dying section
+                if (!this.harry.isAlive()) {
+                    waitBeforeReviveCounter++;
+                    if (waitBeforeReviveCounter == timeForHarryToRevive) {
+                        timeToChange = toAdd;
+                        harry.revive();
+                        waitBeforeReviveCounter = 0;
+
+                    } else if (waitBeforeReviveCounter == timeToChange) {
+                        timeToChange += toAdd;
+                        harry.toHideOrNot();
+                    }
+                }
+
+                repaint();
+
+                Utils.sleep(HARRY_SPEED);
+            }
         }).start();
     }
-
 
 
     public void keyTyped(KeyEvent e) {
