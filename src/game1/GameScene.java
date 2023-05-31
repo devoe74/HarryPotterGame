@@ -244,7 +244,6 @@ public class GameScene extends JPanel implements KeyListener {
                         harry.toHideOrNot();
                     }
                 }
-
                 repaint();
 
                 Utils.sleep(HARRY_SPEED);
